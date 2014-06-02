@@ -17,10 +17,12 @@ http://downloads.vagrantup.com/
 
 Create the VM:
 
-(navigate to directory containing the Vagrantfile and enter)
+Navigate to directory containing the Vagrantfile and enter:
+
 vagrant up
 
-Ssh into the newly started VM
+Ssh into the newly started VM:
+
 vagrant ssh
 
 Have fun!
