@@ -1,28 +1,48 @@
-vagrant-docker
-==============
+# CentOS 6.5 Automated VM Setup for Docker Containers
 
-Vagrant CentOS 6 x64 VM with Docker installed
+## Prerequisites
 
-The purpose of this Vagrantfile is to programatically create and provision a CentOS 6 x64 VM with Docker installed
+* Install Virtualbox: https://www.virtualbox.org/wiki/Downloads
+* Install Vagrant: https://docs.vagrantup.com/v2/installation/
+* Ensure that vagrant executable is on the executable path
 
-Prerequisites:
+## VM Setup (automated)
 
-Install Oracle VirtualBox for your host operating system
+* Clone this project into the directory above your code project directory requiring Docker 
+    * This will include your code project in the shared folder with the VM
+    * .gitignore ignores all files not contained in this repo so there is no danger in doing this
 
-https://www.virtualbox.org/wiki/Downloads
+`$ cd .. #directory above your code project`
 
-Install Vagrant for your host operating system
+`$ git clone https://github.com/mattcoffey/vagrant-docker.git .`
 
-http://downloads.vagrantup.com/
+* Download VM image (cached after the first time) and boot VM (ensure that you are in the directory with the Vagrantfile first):
 
-Create the VM:
+`$ vagrant up`
 
-Navigate to directory containing the Vagrantfile and enter:
+* As part of the VM provisioning, Docker, Java and Maven are installed:
+    * `deploy_docker.sh` is run and installs and configures Docker
+    * `deploy_mvn.sh` is run and installs Java and Maven
 
-vagrant up
+## Check that it worked:
 
-Ssh into the newly started VM:
+* ssh into VM:
 
-vagrant ssh
+`$ vagrant ssh`
 
-Have fun!
+* Check docker:
+
+`$ docker ps -a`
+
+* You should see something like this:
+
+<pre>
+  [vagrant@vagrant-centos65 ~]$ docker ps -a 
+  CONTAINER ID        IMAGE                         COMMAND             CREATED             STATUS              PORTS                     NAMES
+</pre>
+
+* Check Java and Maven:
+  
+`$ java -version`
+<br>
+`$ mvn -version`

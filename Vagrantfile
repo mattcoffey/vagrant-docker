@@ -1,58 +1,33 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # Box to build off of.
+  config.vm.box = "CentOS6.5"
+  config.vm.box_url = "https://googledrive.com/host/0B4tZlTbOXHYWVGpHRWZuTThGVUE/centos65_virtualbox_50G.box"
 
-  # All Vagrant configuration is done here. The most common configuration
-  # options are documented and commented below. For a complete reference,
-  # please see the online documentation at vagrantup.com.
-  config.vm.define :docker do |config|
-    config.vm.hostname = "docker"
+  # Enable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`.
+  config.vm.box_check_update = true
 
-    # Every Vagrant virtual environment requires a box to build off of.
-    config.vm.box = "centos64"
-
-    # The url from where the 'config.vm.box' box will be fetched if it
-    # doesn't already exist on the user's system.
-    config.vm.box_url = "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20131103.box"
-
-    # Create a private network, which allows host-only access to the machine
-    # using a static IP.
-    config.vm.network :private_network, ip: "172.28.128.3", :netmask => "255.255.0.0", adapter: 2
-    # Provision Docker via a shell script
-    config.vm.provision "shell", :path => "deploy_docker.sh" do |s|
-        s.args = "-i 172.28.128.3 -h docker"
-    end
+  # Create a private network, which allows host-only access to the machine
+  # using a static IP.
+  config.vm.network :private_network, ip: "172.28.128.4", :netmask => "255.255.0.0", adapter: 2
+  # Provision Docker via a shell script
+  config.vm.provision "shell", :path => "vagrant_config/deploy_docker.sh" do |s|
+      s.args = "-i 172.28.128.4 -h projects"
   end
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network :forwarded_port, guest: 80, host: 8080
+  # Deploy Java and Maven
+  config.vm.provision "shell", path: "vagrant_config/deploy_mvn.sh"
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network :public_network
-
-  # If true, then any SSH connections made will enable agent forwarding.
-  # Default value: false
-  # config.ssh.forward_agent = true
-
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
-  # Provider-specific configuration
-  config.vm.provider :virtualbox do |vb|
-    # Don't boot with headless mode
-    # vb.gui = true
-    # Use VBoxManage to customize the VM
-    # Increase RAM to 1GB
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+  # Allocate 4GB RAM and 2 CPUs
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", 4096]
+    vb.customize ["modifyvm", :id, "--cpus", 2]
   end
 end
