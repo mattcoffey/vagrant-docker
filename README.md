@@ -15,8 +15,11 @@
 `$ cd .. #directory above your code project`
 <br>
 `$ git init`
+<br>
 `$ git remote add origin https://github.com/mattcoffey/vagrant-docker.git`
+<br>
 `$ git fetch`
+<br>
 `$ git checkout -t origin/master`
 
 * Download VM image (cached after the first time) and boot VM (ensure that you are in the directory with the Vagrantfile first):
