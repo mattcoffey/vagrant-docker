@@ -13,8 +13,11 @@
     * .gitignore ignores all files not contained in this repo so there is no danger in doing this
 
 `$ cd .. #directory above your code project`
-
-`$ git clone https://github.com/mattcoffey/vagrant-docker.git .`
+<br>
+`$ git init`
+`$ git remote add origin https://github.com/mattcoffey/vagrant-docker.git`
+`$ git fetch`
+`$ git checkout -t origin/master`
 
 * Download VM image (cached after the first time) and boot VM (ensure that you are in the directory with the Vagrantfile first):
 
