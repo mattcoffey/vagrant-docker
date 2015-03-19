@@ -40,3 +40,4 @@ chown root:wheel /opt/apache-maven-3.2.5/conf/settings.xml
 echo 'export JAVA_HOME=/opt/jdk1.8.0_25' >> /home/vagrant/.bashrc
 echo 'export M2_HOME=/opt/apache-maven-3.2.5' >> /home/vagrant/.bashrc
 echo 'export PATH=$PATH:$JAVA_HOME/bin:$M2_HOME/bin:bin' >> /home/vagrant/.bashrc
+echo 'cd /vagrant' >> /home/vagrant/.bashrc

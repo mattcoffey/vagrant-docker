@@ -29,4 +29,4 @@ echo 'export DOCKER_HOST=tcp://0.0.0.0:4243' >> /home/vagrant/.bashrc
 echo 'alias docker="sudo docker -H $DOCKER_HOST"' >> /home/vagrant/.bashrc 
  
 # Setup /etc/hosts (not sure why we need vagrant-centos65.vagrantup.com) 
-echo '127.0.0.1    vagrant-centos65.vagrantup.com' >> /etc/hosts
+echo '127.0.0.1    vagrant-centos65.vagrantup.com dockerhost' >> /etc/hosts

@@ -16,10 +16,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a static IP.
-  config.vm.network :private_network, ip: "172.28.128.4", :netmask => "255.255.0.0", adapter: 2
+  config.vm.network :private_network, ip: "172.28.128.5", :netmask => "255.255.0.0", adapter: 2
   # Provision Docker via a shell script
   config.vm.provision "shell", :path => "vagrant_config/deploy_docker.sh" do |s|
-      s.args = "-i 172.28.128.4 -h projects"
+      s.args = "-i 172.28.128.5 -h projects"
   end
 
   # Deploy Java and Maven
